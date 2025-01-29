@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ExpenseService {
      List<ExpensesDto>  getAllExpenseServices();
+     ExpensesDto getExpensesByExpensesId(String expensesId);
 }
