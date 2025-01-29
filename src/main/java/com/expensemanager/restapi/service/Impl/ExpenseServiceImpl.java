@@ -2,6 +2,7 @@ package com.expensemanager.restapi.service.Impl;
 
 import com.expensemanager.restapi.dto.ExpensesDto;
 import com.expensemanager.restapi.entity.ExpensesEntity;
+import com.expensemanager.restapi.exception.ResourceNotFoundException;
 import com.expensemanager.restapi.io.ExpensesResponse;
 import com.expensemanager.restapi.repos.ExpensesRepos;
 import com.expensemanager.restapi.service.ExpenseService;
@@ -33,6 +34,13 @@ public class ExpenseServiceImpl implements ExpenseService {
         List<ExpensesDto> listOfDTO = listOfEntity.stream().map(expensesEntity -> mapToExpenseDTO(expensesEntity)).collect(Collectors.toList());
        //Return the list
         return listOfDTO;
+    }
+
+    @Override
+    public ExpensesDto getExpensesByExpensesId(String expensesId) {
+       ExpensesEntity expensesEntity= expensesRepos.findByExpensesId(expensesId)
+               .orElseThrow(()->new ResourceNotFoundException("Run time expceptions {} "+ expensesId));
+       return mapToExpenseDTO(expensesEntity);
     }
 
     private ExpensesDto mapToExpenseDTO(ExpensesEntity expensesEntity) {
