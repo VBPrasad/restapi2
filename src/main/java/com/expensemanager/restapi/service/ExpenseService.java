@@ -8,6 +8,5 @@ public interface ExpenseService {
      List<ExpenseDTO>  getAllExpenseServices();
      ExpenseDTO getExpensesByExpensesId(String expensesId);
      void deleteExpenseByExpensesId(String expensesId);
-
      ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDto);
 }

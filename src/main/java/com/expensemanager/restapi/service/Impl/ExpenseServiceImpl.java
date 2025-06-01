@@ -51,7 +51,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDto) {
         ExpensesEntity expensesEntity=mapToExpenseEntity(expenseDto);
-        expensesEntity .setExpensesId( UUID.randomUUID().toString() );
+        expensesEntity.setExpensesId(UUID.randomUUID().toString());
         expensesEntity=expensesRepos.save( expensesEntity );
         return mapToExpenseDTO( expensesEntity );
     }
