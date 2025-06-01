@@ -18,14 +18,14 @@ import java.util.Date;
 public class ExpensesRequest {
 //@NotEmpty
 //@NotNull
-@NotBlank(message="Expense name is required")
-@Size(min =3, message = "Expense name should be at least min 3 characters")
+    @NotBlank(message="Expense name is required")
+    @Size(min =3, message = "Expense name should be at least min 3 characters")
     private String name;
     private String note;
-@NotBlank(message="Expense category is required")
+    @NotBlank(message="Expense category is required")
     private String category;
-@NotNull(message="Expense date is required")
+    @NotNull(message="Expense date is required")
     private Date date;
-@NotNull(message="Expense amount is required")
+    @NotNull(message="Expense amount is required")
     private BigDecimal amount;
 }
