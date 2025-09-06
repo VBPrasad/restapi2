@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.event.WindowFocusListener;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,7 @@ public class ExpensesController {
         List<ExpensesResponse> expensesResponses = expensesDtoList.stream().map(expensesDto -> mapToExpenseDTO(expensesDto)).collect(Collectors.toList());
         return expensesResponses;
     }
+
     @GetMapping("/expenses/{expensesId}")
     public ExpensesResponse getExpenseByExpensesId(@PathVariable String expensesId) {
         ExpenseDTO expensesDto = expenseService.getExpensesByExpensesId(expensesId);
@@ -46,9 +48,6 @@ public class ExpensesController {
         log.info("API delete expenses {} called", expensesId);
        expenseService.deleteExpenseByExpensesId(expensesId);
     }
-    private ExpensesResponse mapToExpenseDTO(ExpenseDTO expenseDto) {
-        return modelMapper.map(expenseDto, ExpensesResponse.class);
-    }
 
     @PostMapping("/expenses")
     public ExpensesResponse saveExpenseDetails(@Valid @RequestBody  ExpensesRequest expensesRequest){
@@ -56,15 +55,30 @@ public class ExpensesController {
        ExpenseDTO expenseDto= mapToExpenseDTO(expensesRequest);
        expenseDto=expenseService.saveExpenseDetails(expenseDto);
        return mapToExpenseResponse(expenseDto);
+    }
+    @PutMapping("/expenses/{expensesId}")
+    public ExpensesResponse updateExpenseDetails(@RequestBody ExpensesRequest updateExpenseDetails, @PathVariable String expensesId){
+        log.info("Put Expense deatils API called expenseRequest {}, expensesId {}", updateExpenseDetails,expensesId  );
+        ExpenseDTO expenseDTO=mapToExpenseDTO( updateExpenseDetails );
 
+
+   expenseDTO =expenseService.updateExpenseDetails( expenseDTO,expensesId );
+        return mapToExpenseResponse( expenseDTO );
 
     }
+
     private ExpenseDTO mapToExpenseDTO(ExpensesRequest expensesRequest){
         return modelMapper.map(expensesRequest,ExpenseDTO.class );
 
     }
+
     private ExpensesResponse mapToExpenseResponse(ExpenseDTO expenseDTO){
        return  modelMapper.map( expenseDTO,ExpensesResponse.class );
     }
+
+    private ExpensesResponse mapToExpenseDTO(ExpenseDTO expenseDto) {
+        return modelMapper.map(expenseDto, ExpensesResponse.class);
+    }
+
 }
 
