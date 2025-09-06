@@ -9,4 +9,5 @@ public interface ExpenseService {
      ExpenseDTO getExpensesByExpensesId(String expensesId);
      void deleteExpenseByExpensesId(String expensesId);
      ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDto);
+     ExpenseDTO updateExpenseDetails(ExpenseDTO expenseDTO,String expensesId);
 }
