@@ -49,6 +49,7 @@ public class ExpensesController {
        expenseService.deleteExpenseByExpensesId(expensesId);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/expenses")
     public ExpensesResponse saveExpenseDetails(@Valid @RequestBody  ExpensesRequest expensesRequest){
         log.info("Post Expense details API called {}", expensesRequest);
@@ -56,6 +57,7 @@ public class ExpensesController {
        expenseDto=expenseService.saveExpenseDetails(expenseDto);
        return mapToExpenseResponse(expenseDto);
     }
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/expenses/{expensesId}")
     public ExpensesResponse updateExpenseDetails(@RequestBody ExpensesRequest updateExpenseDetails, @PathVariable String expensesId){
         log.info("Put Expense deatils API called expenseRequest {}, expensesId {}", updateExpenseDetails,expensesId  );
